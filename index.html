@@ -7,7 +7,7 @@
             font-family: Arial, sans-serif;
         }
         .container {
-            width: 300px;
+            width: 350px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -55,17 +55,17 @@
             var result;
             
             if (unknown === 'S') {
-                result = (P2 * y * x) / P1 + K;
+                result = (P1 * y * x) / P2 + K;
             } else if (unknown === 'K') {
-                result = S - (P2 * y * x) / P1;
+                result = S - (P1 * y * x) / P2;
             } else if (unknown === 'P1') {
-                result = (P2 * y * x) / (S - K);
+                result = (P2 * x) / (y * (S - K));
             } else if (unknown === 'x') {
-                result = P1 / ((S - K) / (P2 * y));
+                result = (P2 * (S - K)) / (P1 * y);
             } else if (unknown === 'P2') {
-                result = ((S - K) * P1) / (x * y);
+                result = (P1 * y * x) / (S - K);
             } else if (unknown === 'y') {
-                result = ((S - K) * P1) / (P2 * x);
+                result = (P2 * (S - K)) / (P1 * x);
             }
             
             document.getElementById('result').innerText = unknown + ' = ' + result;
