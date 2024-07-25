@@ -1,2 +1,2 @@
-REDUCTION VALUE CALC
-===================
+VALUE CALC
+==========
