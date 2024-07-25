@@ -7,7 +7,7 @@
             font-family: Arial, sans-serif;
         }
         .container {
-            width: 350px;
+            width: 300px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -15,18 +15,26 @@
             background-color: #f9f9f9;
         }
         input, button, select {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 10px;
             margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-container button {
+            width: 48%;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Formula Calculator</h2>
-        <select id="unknown">
+        <select id="unknown" onchange="updateInputs()">
             <option value="S">S</option>
             <option value="K">K</option>
             <option value="P1">P1</option>
@@ -40,10 +48,22 @@
         <input type="number" id="x" placeholder="Enter x">
         <input type="number" id="P2" placeholder="Enter P2">
         <input type="number" id="y" placeholder="Enter y">
-        <button onclick="calculate()">Calculate</button>
+        <div class="button-container">
+            <button onclick="calculate()">Calculate</button>
+            <button onclick="clearResult()">Clear</button>
+        </div>
         <h3 id="result"></h3>
     </div>
     <script>
+        function updateInputs() {
+            var unknown = document.getElementById('unknown').value;
+            var inputs = ['S', 'K', 'P1', 'x', 'P2', 'y'];
+            inputs.forEach(function(input) {
+                document.getElementById(input).disabled = false;
+            });
+            document.getElementById(unknown).disabled = true;
+        }
+
         function calculate() {
             var unknown = document.getElementById('unknown').value;
             var S = parseFloat(document.getElementById('S').value);
@@ -70,6 +90,20 @@
             
             document.getElementById('result').innerText = unknown + ' = ' + result;
         }
+
+        function clearResult() {
+            document.getElementById('result').innerText = '';
+            document.getElementById('S').value = '';
+            document.getElementById('K').value = '';
+            document.getElementById('P1').value = '';
+            document.getElementById('x').value = '';
+            document.getElementById('P2').value = '';
+            document.getElementById('y').value = '';
+            document.getElementById('unknown').selectedIndex = 0;
+            updateInputs();
+        }
+
+        updateInputs();
     </script>
 </body>
 </html>
