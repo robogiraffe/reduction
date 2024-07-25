@@ -1,0 +1,2 @@
+REDUCTION VALUE CALC
+===================
