@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formula Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formula Calculator</h2>
+        <input type="number" id="S" placeholder="Enter S">
+        <input type="number" id="K" placeholder="Enter K">
+        <input type="number" id="P1" placeholder="Enter P1">
+        <input type="number" id="x" placeholder="Enter x">
+        <input type="number" id="P2" placeholder="Enter P2">
+        <input type="number" id="y" placeholder="Enter y">
+        <button onclick="calculate()">Calculate</button>
+        <h3 id="result"></h3>
+    </div>
+    <script>
+        function calculate() {
+            var S = parseFloat(document.getElementById('S').value);
+            var K = parseFloat(document.getElementById('K').value);
+            var P1 = parseFloat(document.getElementById('P1').value);
+            var x = parseFloat(document.getElementById('x').value);
+            var P2 = parseFloat(document.getElementById('P2').value);
+            var y = parseFloat(document.getElementById('y').value);
+            
+            var result = (S - K) * (P1 / x) - P2 * y;
+            document.getElementById('result').innerText = 'Result: ' + result;
+        }
+    </script>
+</body>
+</html>
+
