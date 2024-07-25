@@ -15,12 +15,12 @@
             background-color: #f9f9f9;
         }
         input, button, select {
-            width: calc(100% - 22px);
+            width: calc(100% - 22px); /* Враховує padding і border */
             padding: 10px;
             margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Включає padding і border у загальну ширину */
         }
         .button-container {
             display: flex;
@@ -42,12 +42,13 @@
             <option value="P2">P2</option>
             <option value="y">y</option>
         </select>
-        <input type="number" id="S" placeholder="Enter S">
+        <input type="number" id="S" placeholder="Enter S" oninput="updateY()">
         <input type="number" id="K" placeholder="Enter K">
         <input type="number" id="P1" placeholder="Enter P1">
         <input type="number" id="x" placeholder="Enter x">
         <input type="number" id="P2" placeholder="Enter P2">
-        <input type="number" id="y" placeholder="Enter y">
+        <input type="number" id="y" placeholder="Enter y" readonly>
+        <input type="number" id="percentage" placeholder="Enter percentage for y" oninput="updateY()">
         <div class="button-container">
             <button onclick="calculate()">Calculate</button>
             <button onclick="clearResult()">Clear</button>
@@ -57,11 +58,27 @@
     <script>
         function updateInputs() {
             var unknown = document.getElementById('unknown').value;
-            var inputs = ['S', 'K', 'P1', 'x', 'P2', 'y'];
+            var inputs = ['S', 'K', 'P1', 'x', 'P2', 'y', 'percentage'];
             inputs.forEach(function(input) {
                 document.getElementById(input).disabled = false;
             });
             document.getElementById(unknown).disabled = true;
+
+            if (unknown === 'y') {
+                document.getElementById('percentage').disabled = true;
+            } else {
+                document.getElementById('percentage').disabled = false;
+            }
+        }
+
+        function updateY() {
+            var S = parseFloat(document.getElementById('S').value);
+            var percentage = parseFloat(document.getElementById('percentage').value);
+            if (!isNaN(S) && !isNaN(percentage)) {
+                document.getElementById('y').value = (S * (percentage / 100)).toFixed(2);
+            } else {
+                document.getElementById('y').value = '';
+            }
         }
 
         function calculate() {
@@ -94,6 +111,7 @@
         function clearResult() {
             document.getElementById('result').innerText = '';
             document.getElementById('S').value = '';
+            document.getElementById('percentage').value = '';
             document.getElementById('K').value = '';
             document.getElementById('P1').value = '';
             document.getElementById('x').value = '';
@@ -103,6 +121,7 @@
             updateInputs();
         }
 
+        // Ініціалізація стану при завантаженні сторінки
         updateInputs();
     </script>
 </body>
