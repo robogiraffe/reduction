@@ -14,7 +14,7 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
-        input, button {
+        input, button, select {
             width: 100%;
             padding: 10px;
             margin: 5px 0;
@@ -26,6 +26,14 @@
 <body>
     <div class="container">
         <h2>Formula Calculator</h2>
+        <select id="unknown">
+            <option value="S">S</option>
+            <option value="K">K</option>
+            <option value="P1">P1</option>
+            <option value="x">x</option>
+            <option value="P2">P2</option>
+            <option value="y">y</option>
+        </select>
         <input type="number" id="S" placeholder="Enter S">
         <input type="number" id="K" placeholder="Enter K">
         <input type="number" id="P1" placeholder="Enter P1">
@@ -37,15 +45,30 @@
     </div>
     <script>
         function calculate() {
+            var unknown = document.getElementById('unknown').value;
             var S = parseFloat(document.getElementById('S').value);
             var K = parseFloat(document.getElementById('K').value);
             var P1 = parseFloat(document.getElementById('P1').value);
             var x = parseFloat(document.getElementById('x').value);
             var P2 = parseFloat(document.getElementById('P2').value);
             var y = parseFloat(document.getElementById('y').value);
+            var result;
             
-            var result = (S - K) * (P1 / x) - P2 * y;
-            document.getElementById('result').innerText = 'Result: ' + result;
+            if (unknown === 'S') {
+                result = (P2 * y * x) / P1 + K;
+            } else if (unknown === 'K') {
+                result = S - (P2 * y * x) / P1;
+            } else if (unknown === 'P1') {
+                result = (P2 * y * x) / (S - K);
+            } else if (unknown === 'x') {
+                result = P1 / ((S - K) / (P2 * y));
+            } else if (unknown === 'P2') {
+                result = ((S - K) * P1) / (x * y);
+            } else if (unknown === 'y') {
+                result = ((S - K) * P1) / (P2 * x);
+            }
+            
+            document.getElementById('result').innerText = unknown + ' = ' + result;
         }
     </script>
 </body>
